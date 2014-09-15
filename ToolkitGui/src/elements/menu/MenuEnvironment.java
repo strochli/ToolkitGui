@@ -11,7 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 import elements.base.GuiContentPanel;
+import function.treetable.BarChart;
 import function.treetable.FileSystemTree;
+import function.treetable.PieChart;
 
 public class MenuEnvironment extends JMenu {
 
@@ -19,17 +21,26 @@ public class MenuEnvironment extends JMenu {
 
 	public MenuEnvironment() {
 		super();
-		this.setText("Bereich");
-		this.setMnemonic('B');
-		this.add(test());
+		this.setText("Funktionen");
+		this.setMnemonic('F');
+		this.add(pieChart());
+		this.add(barChart());
 		this.add(treeTableFunction());
 
 	}
 
-	private JMenuItem test() {
-		JMenuItem item = new JMenuItem("Test");
-		item.addActionListener(doSomething());
-		item.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.Event.CTRL_MASK));
+	private JMenuItem pieChart() {
+		JMenuItem item = new JMenuItem("Pie Charts");
+		item.addActionListener(createPieChart());
+		item.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.Event.CTRL_MASK));
+		return item;
+
+	}
+
+	private JMenuItem barChart() {
+		JMenuItem item = new JMenuItem("Bar Charts");
+		item.addActionListener(createBarChart());
+		item.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.Event.CTRL_MASK));
 		return item;
 
 	}
@@ -42,12 +53,35 @@ public class MenuEnvironment extends JMenu {
 
 	}
 
-	private ActionListener doSomething() {
+	private ActionListener createPieChart() {
 		ActionListener newListener = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("tüüüüüüt");
+
+				// Neues Contentpanel
+				GuiContentPanel cp = new GuiContentPanel("Pie Chart Example", new PieChart());
+
+				// ContentPanel ans Rootpanel
+				repaintAll(cp);
+
+			}
+		};
+		return newListener;
+	}
+
+	private ActionListener createBarChart() {
+		ActionListener newListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// Neues Contentpanel
+				GuiContentPanel cp = new GuiContentPanel("Bar Chart Example", new BarChart());
+
+				// ContentPanel ans Rootpanel
+				repaintAll(cp);
+
 			}
 		};
 		return newListener;
@@ -65,12 +99,16 @@ public class MenuEnvironment extends JMenu {
 				GuiContentPanel cp = new GuiContentPanel("Dateisystem", null, newPanel);
 
 				// ContentPanel ans Rootpanel
-				getRootPane().getContentPane().removeAll();
-				getRootPane().getContentPane().add(cp);
-				getRootPane().getContentPane().revalidate();
-				getRootPane().getContentPane().repaint();
+				repaintAll(cp);
 			}
 		};
 		return newListener;
+	}
+
+	private void repaintAll(GuiContentPanel cp) {
+		getRootPane().getContentPane().removeAll();
+		getRootPane().getContentPane().add(cp);
+		getRootPane().getContentPane().revalidate();
+		getRootPane().getContentPane().repaint();
 	}
 }
