@@ -2,7 +2,6 @@ package main;
 
 import elements.base.GUI;
 
-
 public class RunGui {
 
 	/**

@@ -1,8 +1,7 @@
 package elements.base;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 import main.GuiException;
 
@@ -12,7 +11,7 @@ public class GUI extends JFrame {
 
 	public GUI() {
 
-		EventQueue.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
 			public void run() {

@@ -10,14 +10,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
+import container.barchart.BarChartContainer;
+import container.piechart.PieChartContainer;
+import container.treetable.FileSystemTree;
 import elements.base.GuiContentPanel;
-import function.treetable.BarChart;
-import function.treetable.FileSystemTree;
-import function.treetable.PieChart;
 
 public class MenuEnvironment extends JMenu {
 
 	private static final long serialVersionUID = 1L;
+	private GuiContentPanel cp;
 
 	public MenuEnvironment() {
 		super();
@@ -31,8 +32,8 @@ public class MenuEnvironment extends JMenu {
 
 	private JMenuItem pieChart() {
 		JMenuItem item = new JMenuItem("Pie Charts");
-		item.addActionListener(createPieChart());
-		item.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.Event.CTRL_MASK));
+		item.addActionListener(createPieChart(item.getText()));
+		item.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.Event.CTRL_MASK));
 		return item;
 
 	}
@@ -48,23 +49,18 @@ public class MenuEnvironment extends JMenu {
 	private JMenuItem treeTableFunction() {
 		JMenuItem item = new JMenuItem("Dateisystem");
 		item.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.Event.CTRL_MASK));
-		item.addActionListener(startTreeTableFunction());
+		item.addActionListener(createTreeTable());
 		return item;
 
 	}
 
-	private ActionListener createPieChart() {
+	private ActionListener createPieChart(final String title) {
 		ActionListener newListener = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				// Neues Contentpanel
-				GuiContentPanel cp = new GuiContentPanel("Pie Chart Example", new PieChart());
-
-				// ContentPanel ans Rootpanel
+				cp = new PieChartContainer("Pie Chart Example");
 				repaintAll(cp);
-
 			}
 		};
 		return newListener;
@@ -75,32 +71,23 @@ public class MenuEnvironment extends JMenu {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-				// Neues Contentpanel
-				GuiContentPanel cp = new GuiContentPanel("Bar Chart Example", new BarChart());
-
-				// ContentPanel ans Rootpanel
+				cp = new BarChartContainer("Bar Chart Example");
 				repaintAll(cp);
-
 			}
 		};
 		return newListener;
 	}
 
-	private ActionListener startTreeTableFunction() {
+	private ActionListener createTreeTable() {
 		ActionListener newListener = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
 				final Component newPanel = new JScrollPane(new FileSystemTree(new File("D:/iTunes/iTunes Media/Music")));
-
-				// Neues Contentpanel
-				GuiContentPanel cp = new GuiContentPanel("Dateisystem", null, newPanel);
-
-				// ContentPanel ans Rootpanel
+				cp = new GuiContentPanel("Dateisystem", null, newPanel);
 				repaintAll(cp);
 			}
+
 		};
 		return newListener;
 	}

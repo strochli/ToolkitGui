@@ -1,4 +1,4 @@
-package function.treetable;
+package container.barchart;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -10,11 +10,11 @@ public class BarChart extends ChartPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public BarChart() {
-		super(createBarChart());
+	public BarChart(JFreeChart chart) {
+		super(chart);
 	}
 
-	private static JFreeChart createBarChart() {
+	public static JFreeChart createBarChart() {
 
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 		dataset.addValue(1.0, "Row 1", "Column 1");

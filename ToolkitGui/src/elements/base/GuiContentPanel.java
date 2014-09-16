@@ -7,21 +7,14 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class GuiContentPanel extends JPanel {
-
-	private final GuiTextArea leftBar = new GuiTextArea();
-	private final GuiTextArea centerStage = new GuiTextArea();
 
 	private static final long serialVersionUID = 1L;
 
 	public GuiContentPanel() {
 
 		setContentpanelGlobalSettings();
-		this.add(new GuiTitlePanel("Die Basis GUI"), BorderLayout.NORTH);
-		this.add(leftBar, BorderLayout.WEST);
-		this.add(centerStage, BorderLayout.CENTER);
 		this.addComponentListener(contentpanelListener());
 	}
 
@@ -73,9 +66,6 @@ public class GuiContentPanel extends JPanel {
 		if (comp != null && !"".equals(orientation)) {
 			this.add(comp, orientation);
 			return true;
-		} else {
-			final Component newArea = new JTextArea("Leere Hülle");
-			this.add(newArea, orientation);
 		}
 		return false;
 	}
@@ -90,7 +80,7 @@ public class GuiContentPanel extends JPanel {
 
 			@Override
 			public void componentResized(ComponentEvent e) {
-				updateTextfield(getParent().getSize().width, getParent().getSize().height);
+				//
 			}
 
 			@Override
@@ -103,9 +93,5 @@ public class GuiContentPanel extends JPanel {
 				//
 			}
 		};
-	}
-
-	public void updateTextfield(int width, int height) {
-		//
 	}
 }
