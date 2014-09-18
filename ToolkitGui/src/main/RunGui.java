@@ -1,5 +1,6 @@
 package main;
 
+import data.DerbyDB;
 import elements.base.GUI;
 
 public class RunGui {
@@ -8,7 +9,8 @@ public class RunGui {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new GUI();
+		if (DerbyDB.createDerbyDB())
+			new GUI();
 	}
 
 }
